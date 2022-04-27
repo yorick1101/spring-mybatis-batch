@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.yorick.poc.mybatis.mapper.OrderMapper">
+    
+	<select id="findOrderById" resultType="Order">
+    	select * from orders where id = #{id}
+    </select>
+	<sql id="insert_columns">
+    	INSERT INTO orders(id, customer_id, product, buy_sell, amount, price, status, open_timestamp)
+    </sql>
+	<sql id="insert_item_values">
+    	(#{item.id}, #{item.customerId}, #{item.product}, #{item.buySell}, #{item.amount}, #{item.price}, #{item.status}, #{item.openTimestamp})
+    </sql>
+	<sql id="insert_values">
+    	values(#{id}, #{customerId}, #{product}, #{buySell}, #{amount}, #{price}, #{status}, #{openTimestamp})
+    </sql>
+	<insert id="newOrders">
+	    <include refid="insert_columns" />
+	    values
+		<foreach item="item" index="index" collection="list" separator=",">
+			<include refid="insert_item_values"></include>
+		</foreach>
+	</insert>
+	<insert id="newOrder">
+		<include refid="insert_columns" />
+		<include refid="insert_values" />
+	</insert>
+	<select id="count" resultType="Integer">
+	    select count(0) from orders
+	</select>
+</mapper>
