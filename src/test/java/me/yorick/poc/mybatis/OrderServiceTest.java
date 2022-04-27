@@ -28,7 +28,7 @@ public class OrderServiceTest {
 	
 	@Test
 	public void testTransactionalBatch() throws InterruptedException {
-		int size = 1;
+		int size = 10000;
 		final StopWatch watch = new StopWatch();
 		watch.start();	
 		List<Order> orders = OrderTestUtils.createOrders(size);

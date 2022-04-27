@@ -24,11 +24,15 @@ public class OrderService {
 		return Optional.ofNullable(orderMapper.findOrderById(id));
 	}
 	
-	//@Transactional
+	@Transactional
 	public void newOrders(List<Order> orders) {
+		int count = 0;
 		for(Order order: orders) {
 			orderMapper.newOrder(order);
+			count++;
+			if(count%100==0) {System.out.println("Flush");orderMapper.flush();}
 		}
+		
 	}
 	
 	public int count() {
