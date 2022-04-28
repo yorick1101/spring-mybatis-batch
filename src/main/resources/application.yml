@@ -14,8 +14,9 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     default-executor-type: BATCH
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
+    #log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    
 logging:
-  level: 
-    com.spring.ibatis: TRACE
+  level:
+    me.yorick.poc: INFO
+    #org.apache.ibatis: DEBUG

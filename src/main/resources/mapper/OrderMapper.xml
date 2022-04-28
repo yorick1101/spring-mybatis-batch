@@ -28,4 +28,19 @@
 	<select id="count" resultType="Integer">
 	    select count(0) from orders
 	</select>
+	<update id="updateOrders">
+	    update orders set status = case
+	    <foreach collection="list" index="index" item="item">
+	      when id=#{item.id} then #{item.status}
+	    </foreach>
+	    end
+	    where id in
+	    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+	      #{item.id}
+	    </foreach>
+	</update>
+	<update id="updateStatus">
+	    update orders set status = #{status}
+	    where id = #{id}
+	</update>
 </mapper>
