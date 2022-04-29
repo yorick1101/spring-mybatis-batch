@@ -27,8 +27,8 @@ public class OrderMapperTest{
 	@Autowired
 	private OrderMapper orderMapper;
 	
-	int size = 10000;
-	int updateCount = 3000;
+	int size = 5;
+	int updateCount = 3;
 	
 	/**
 	 * Failed if mybatis:default-executor-type: BATCH added to application.yml
@@ -36,14 +36,22 @@ public class OrderMapperTest{
 	 * @throws SQLException
 	 */
 	@Test
-	@Disabled
-	public void batchInsert() {
-		int size = 10000;
+	public void multiRowInsert() {
 		final StopWatch watch = new StopWatch();
 		watch.start();
 		orderMapper.newOrders(OrderTestUtils.createOrders(size));
 		watch.stop();
-		log.info("watch:{}",watch.getLastTaskTimeMillis());
+		log.info("multiRowInsert watch:{}",watch.getLastTaskTimeMillis());
+		assertEquals(size, orderMapper.count());
+	}
+	
+	@Test
+	public void multiInsert() {
+		final StopWatch watch = new StopWatch();
+		watch.start();
+		orderMapper.newOrdersMulti(OrderTestUtils.createOrders(size));
+		watch.stop();
+		log.info("multiInsert watch:{}",watch.getLastTaskTimeMillis());
 		assertEquals(size, orderMapper.count());
 	}
 	

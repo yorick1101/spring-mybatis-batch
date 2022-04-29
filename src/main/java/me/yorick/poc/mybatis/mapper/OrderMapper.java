@@ -16,6 +16,8 @@ public interface OrderMapper {
 	
 	void newOrders(List<Order> orders);
 	
+	void newOrdersMulti(List<Order> orders);
+	
 	void newOrder(Order order);
 	
 	int count();

@@ -14,6 +14,13 @@
 	<sql id="insert_values">
     	values(#{id}, #{customerId}, #{product}, #{buySell}, #{amount}, #{price}, #{status}, #{openTimestamp})
     </sql>
+    <insert id="newOrdersMulti">
+		<foreach item="item" collection="list" separator=";">
+		    <include refid="insert_columns" />
+		    values
+			<include refid="insert_item_values"></include>
+		</foreach>
+	</insert>
 	<insert id="newOrders">
 	    <include refid="insert_columns" />
 	    values
